@@ -97,12 +97,14 @@ def main():
         check_integrity=args.check_integrity,
     )
     if results is not None:
-        dumped = json.dumps(results, indent=2)
-        print(dumped)
-
+        # dumped = json.dump(results, indent=2)
+        # print(dumped)
+        results_metric = results["results"]
+        # print(results_metric)
         if args.output_path:
             with open(args.output_path, "w") as f:
-                f.write(dumped)
+                json.dump(results_metric, f)
+                # f.write(dumped)
 
         print(
             f"{args.model} ({args.model_args}), limit: {args.limit}, provide_description: {args.provide_description}, "
