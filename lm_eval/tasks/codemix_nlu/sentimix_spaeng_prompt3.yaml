@@ -1,0 +1,4 @@
+include: sentimix_spaeng_prompt1.yaml
+task: sentimix_spaeng_p3
+doc_to_text: "{{text.lstrip()}}\nWhat would be the sentiment of the text above?"
+doc_to_target: "{{gold}}"

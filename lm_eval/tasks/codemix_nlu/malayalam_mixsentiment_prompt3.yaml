@@ -1,0 +1,4 @@
+include: tamil_mixsentiment_prompt3.yaml
+task: malayalam_mixsentiment_p3
+dataset_name: malayalam_mixsentiment
+
