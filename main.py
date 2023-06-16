@@ -102,36 +102,38 @@ def main():
     )
 
     if results is not None:
-        samples = results.pop("samples")
-
-        dumped = json.dumps(results, indent=2)
-        print(dumped)
-
-        batch_sizes = ",".join(map(str, results["config"]["batch_sizes"]))
-
+        results_metric = results["results"]
         if args.output_path:
-            os.makedirs(os.path.dirname(args.output_path), exist_ok=True)
-
             with open(args.output_path, "w") as f:
-                f.write(dumped)
-
-            for task_name, config in results["configs"].items():
-                output_name = "{}_{}".format(
-                    re.sub("/", "__", args.model_args), task_name
-                )
-                if os.path.isdir(args.output_path):
-                    filename = f"./{args.output_path}/{output_name}.jsonl"
-                elif os.path.isfile(args.output_path):
-                    filename = (
-                        f"./{os.path.dirname(args.output_path)}/{output_name}.jsonl"
-                    )
-
-                with jsonlines.open(filename, "w") as f:
-                    f.write_all(samples[task_name])
+                json.dump(results_metric, f)
+        # samples = results.pop("samples")
+        # dumped = json.dumps(results, indent=2)
+        # print(dumped)
+        #
+        # batch_sizes = ",".join(map(str, results["config"]["batch_sizes"]))
+        #
+        # if args.output_path:
+        #     os.makedirs(os.path.dirname(args.output_path), exist_ok=True)
+        #
+        #     with open(args.output_path, "w") as f:
+        #         f.write(dumped)
+        #
+        #     for task_name, config in results["configs"].items():
+        #         output_name = "{}_{}".format(
+        #             re.sub("/", "__", args.model_args), task_name
+        #         )
+        #         if os.path.isdir(args.output_path):
+        #             filename = f"./{args.output_path}/{output_name}.jsonl"
+        #         elif os.path.isfile(args.output_path):
+        #             filename = (
+        #                 f"./{os.path.dirname(args.output_path)}/{output_name}.jsonl"
+        #             )
+        #
+        #         with jsonlines.open(filename, "w") as f:
+        #             f.write_all(samples[task_name])
 
         print(
             f"{args.model} ({args.model_args}), limit: {args.limit}, num_fewshot: {args.num_fewshot}, "
-            f"batch_size: {args.batch_size}{f' ({batch_sizes})' if batch_sizes else ''}"
         )
         print(evaluator.make_table(results))
 

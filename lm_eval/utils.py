@@ -415,6 +415,28 @@ def create_iterator(raw_iterator, rank, world_size, limit=None):
     """
     return islice(raw_iterator, rank, limit, world_size)
 
+def pad_and_concat(max_length:int, tensors: List[torch.Tensor]):
+    """
+    Method for padding a list of tensors given the maximum tensor
+    length in the batch. Used for batching inputs and continuations in
+    seq2seq models.
+    """
+    for i, tensor in enumerate(tensors):
+        tensor_len = tensor.shape[0]
+        if tensor_len < max_length:
+            tensors[i] = torch.cat(
+                    [
+                        tensor,  # [seq]
+                        torch.zeros(max_length - tensor_len, dtype=torch.long).to(
+                            tensor.device
+                        ),  # [padding_length - seq]
+                    ],
+                    dim=0,
+                ).unsqueeze(0)
+        else:
+            tensors[i] = tensor.unsqueeze(0)
+
+    return torch.cat(tensors, dim = 0)
 
 def clear_torch_cache():
     gc.collect()

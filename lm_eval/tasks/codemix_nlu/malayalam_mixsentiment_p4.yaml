@@ -1,4 +1,4 @@
-include: tamil_mixsentiment_prompt4.yaml
+include: tamil_mixsentiment_p4.yaml
 task: malayalam_mixsentiment_p4
 dataset_name: malayalam_mixsentiment
 
