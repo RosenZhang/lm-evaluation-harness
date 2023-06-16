@@ -29,10 +29,11 @@ class Sampler:
         # TODO: should we just stop people from using fewshot from same split as evaluating?
         selected_docs = [x for x in fewshotex if x != doc][:num_fewshot]
 
+        #hardcoded hack for codemix_nlu task to swap string value for in-context examples
         labeled_examples = (
             self.delimiter.join(
                 [
-                    self.task.doc_to_text(doc) + self.task.doc_to_target(doc)
+                    self.task.doc_to_text(doc) + ['positive', 'negative'][int(self.task.doc_to_target(doc))]
                     for doc in selected_docs
                 ]
             )
