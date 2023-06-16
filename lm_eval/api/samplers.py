@@ -28,7 +28,6 @@ class Sampler:
         # get rid of the doc that's the one we're evaluating, if it's in the fewshot
         # TODO: should we just stop people from using fewshot from same split as evaluating?
         selected_docs = [x for x in fewshotex if x != doc][:num_fewshot]
-        #hardcoded hack for codemix_nlu task to swap string value for in-context examples
         labeled_examples = (
             self.delimiter.join(
                 [

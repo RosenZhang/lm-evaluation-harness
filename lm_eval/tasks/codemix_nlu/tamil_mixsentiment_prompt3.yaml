@@ -1,3 +1,0 @@
-include: sentimix_spaeng_prompt3.yaml
-task: tamil_mixsentiment_p3
-dataset_name: tamil_mixsentiment

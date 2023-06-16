@@ -1,4 +1,0 @@
-include: sentimix_spaeng_prompt1.yaml
-task: sentimix_spaeng_p5
-doc_to_text: "Text: {{text}}\nPlease classify the sentiment of above text. Sentiment:"
-doc_to_target: "{{gold}}"

@@ -1,4 +1,0 @@
-include: sentimix_spaeng_prompt1.yaml
-task: sentimix_spaeng_p4
-doc_to_text: "What is the sentiment of this text?\nText: {{text}}\nAnswer:"
-doc_to_target: "{{gold}}"
